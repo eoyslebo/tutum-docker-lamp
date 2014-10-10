@@ -3,13 +3,13 @@
 
         DocumentRoot /var/www/html
         <Directory />
-                Options FollowSymLinks
-                AllowOverride None
+                Options FollowSymLinks Indexes
+                AllowOverride All
         </Directory>
         <Directory /var/www/html>
                 Options Indexes FollowSymLinks MultiViews
                 # To make wordpress .htaccess work
-                AllowOverride FileInfo
+                AllowOverride FileInfo All
                 Order allow,deny
                 allow from all
         </Directory>

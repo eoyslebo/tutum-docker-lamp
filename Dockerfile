@@ -33,8 +33,24 @@ ADD apache_default /etc/apache2/sites-available/000-default.conf
 RUN a2enmod rewrite
 
 # Configure /app folder with sample app
-RUN git clone https://github.com/fermayo/hello-world-lamp.git /app
+RUN git clone https://github.com/Burton/Analysis-of-Competing-Hypotheses /app
+
+RUN sed -i "40s/.*/\$dbhost = \'localhost\';/" /app/code/common_db.php
+RUN sed -i "41s/.*/\$dbusername = \'root\';/" /app/code/common_db.php
+RUN sed -i "42s/.*/\$dbuserpassword = \'\';/" /app/code/common_db.php
+RUN sed -i "43s/.*/\$default_dbname = \'ach\';/" /app/code/common_db.php
+
+RUN sed -i "25s/.*/<base href=\'http:\/\/192.168.200.107\/\'>/" /app/parts/includes.php
+RUN sed -i "26s/.*/<?php \$base_URL=\'http:\/\/192.168.200.107\/\';/" /app/parts/includes.php
+
+
+
 RUN mkdir -p /app && rm -fr /var/www/html && ln -s /app /var/www/html
+
+#RUN service mysql start
+#RUN echo create database ach | mysql
+#RUN mysql ach -uadmin < /app/db.sql
+
 
 #Enviornment variables to configure php
 ENV PHP_UPLOAD_MAX_FILESIZE 10M

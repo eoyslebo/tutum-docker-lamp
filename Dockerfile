@@ -1,4 +1,4 @@
-FROM ubuntu:trusty
+FROM ubuntu:precise
 MAINTAINER Fernando Mayo <fernando@tutum.co>, Feng Honglin <hfeng@tutum.co>
 
 # Install packages
@@ -29,7 +29,8 @@ ADD create_mysql_admin_user.sh /create_mysql_admin_user.sh
 RUN chmod 755 /*.sh
 
 # config to enable .htaccess
-ADD apache_default /etc/apache2/sites-available/000-default.conf
+RUN rm /etc/apache2/sites-available/default
+ADD apache_default /etc/apache2/sites-available/default
 RUN a2enmod rewrite
 
 # Configure /app folder with sample app
